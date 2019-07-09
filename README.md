@@ -1,7 +1,9 @@
 ## Product Discovery Sample
 
 Use MVVM Architecture.
+
 <img src="art/mvvm.png"/>
+
 This project handles paging products.
 
 ### Libraries
