@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Product Discovery</string>
+    <string name="all_search_product_hint">Nhập tên, mã sản phẩm</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#df2020</color>
+    <color name="colorPrimaryDark">#df2020</color>
+    <color name="colorAccent">#df2020</color>
+    <color name="secondary_text">#8f9598</color>
+    <color name="dark_grey">#262829</color>
+    <color name="pale_grey">#eef1f3</color>
+    <color name="tomato">#ea341f</color>
+    <color name="cool_grey">#8f9598</color>
+</resources>

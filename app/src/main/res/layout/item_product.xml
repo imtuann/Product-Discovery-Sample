@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="product"
+            type="com.tuann.productdiscovery.data.model.Product" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_tiny"
+        android:background="@android:color/white"
+        android:padding="@dimen/spacing_12">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            app:imageUrl='@{product.images != null &amp;&amp; product.images.size > 0 ? product.images.get(0).getUrl() :""}'
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_12"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text='@{product.name}'
+            android:textColor="@color/dark_grey"
+            app:layout_constraintLeft_toRightOf="@id/image"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSellPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_12"
+            android:layout_marginTop="@dimen/spacing_tiny"
+            android:text='@{product.price != null &amp;&amp; product.price.sellPrice!=null?  product.price.sellPrice : "8.790.000 đ"}'
+            android:textColor="@color/tomato"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/image"
+            app:layout_constraintTop_toBottomOf="@id/name" />
+
+        <TextView
+            android:id="@+id/tvSellOrigin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_12"
+            android:textColor="@color/cool_grey"
+            app:layout_constraintLeft_toRightOf="@id/image"
+            app:layout_constraintTop_toBottomOf="@id/tvSellPrice"
+            app:setStrikeThrough='@{product.price == null || product.price.sellPrice==null ? "10.970.000" : ""}' />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_tiny"
+            android:background="@drawable/bg_tag"
+            android:paddingLeft="@dimen/spacing_tiny"
+            android:paddingRight="@dimen/spacing_tiny"
+            android:text='@{product.price == null || product.price.sellPrice==null ? "-20%" : ""}'
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/tvSellOrigin"
+            app:layout_constraintLeft_toRightOf="@id/tvSellOrigin"
+            app:layout_constraintTop_toTopOf="@id/tvSellOrigin"
+            tools:ignore="HardcodedText,SmallSp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
