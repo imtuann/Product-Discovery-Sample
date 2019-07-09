@@ -1,7 +1,6 @@
 package com.tuann.productdiscovery.data.api.response.mapper
 
 import com.tuann.productdiscovery.data.api.response.*
-import com.tuann.productdiscovery.data.api.response.PriceResponse
 import com.tuann.productdiscovery.data.model.*
 
 fun List<ProductResponse>.toProducts(): List<Product> = map {
@@ -28,7 +27,9 @@ fun ProductResponse.toProduct(): Product = Product(
 
 fun List<PromotionResponse>.toPromotions(): List<Promotion> = map { it.toPromotion() }
 
-fun PromotionResponse.toPromotion(): Promotion = Promotion()
+fun PromotionResponse.toPromotion(): Promotion = Promotion(
+    channel
+)
 
 fun List<PromotionPricesResponse>.toPromotionPrices(): List<PromotionPrices> = map {
     it.toPromotionPrice()

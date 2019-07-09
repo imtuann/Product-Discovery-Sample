@@ -18,7 +18,9 @@ class ProductResponse(
     val productLine: ProductLineResponse?
 )
 
-class PromotionResponse
+class PromotionResponse(
+    val channel: String?
+)
 
 class PromotionPricesResponse(
     val channel: String?,

@@ -1,6 +1,10 @@
 package com.tuann.productdiscovery.data.model
 
-class Product(
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Product(
     val displayName: String?,
     val color: Color?,
     val promotions: List<Promotion>?,
@@ -16,57 +20,68 @@ class Product(
     val images: List<Image>?,
     val price: Price?,
     val productLine: ProductLine?
-)
+) : Parcelable
 
-class Promotion
+@Parcelize
+data class Promotion(
+    val channel: String?
+) : Parcelable
 
-class PromotionPrices(
+@Parcelize
+data class PromotionPrices(
     val channel: String?,
     val terminal: String?,
     val finalPrice: Long?,
     val promotionPrice: Long?
-)
+) : Parcelable
 
-
-class Color(
+@Parcelize
+data class Color(
     val code: String?,
     val name: String?
-)
+) : Parcelable
 
-class AttributeSet(
+@Parcelize
+data class AttributeSet(
     val id: Long?,
     val name: String?
-)
+) : Parcelable
 
-class SeoInfo(
+@Parcelize
+data class SeoInfo(
     val metaKeyword: String?,
     val metaTitle: String?,
     val metaDescription: String?,
     val shortDescription: String?,
     val description: String?
-)
+) : Parcelable
 
-class Brand(
+@Parcelize
+data class Brand(
     val code: String?,
     val name: String?
-)
+) : Parcelable
 
-class Status(
+@Parcelize
+data class Status(
     val code: String?,
     val name: String?
-)
+) : Parcelable
 
-class Image(
+@Parcelize
+data class Image(
     val url: String?,
     val priority: Int?
-)
+) : Parcelable
 
-class Price(
+@Parcelize
+data class Price(
     val supplierSalePrice: String?,
     val sellPrice: String?
-)
+) : Parcelable
 
-class ProductLine(
+@Parcelize
+data class ProductLine(
     val code: String?,
     val name: String?
-)
+) : Parcelable

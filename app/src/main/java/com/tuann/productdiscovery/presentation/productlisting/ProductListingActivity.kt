@@ -1,10 +1,10 @@
 package com.tuann.productdiscovery.presentation.productlisting
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -15,16 +15,19 @@ import com.tuann.productdiscovery.R
 import com.tuann.productdiscovery.databinding.ActivityProductListingBinding
 import com.tuann.productdiscovery.di.ViewModelFactory
 import com.tuann.productdiscovery.presentation.common.BaseActivity
-import javax.inject.Inject
-import android.view.inputmethod.EditorInfo
-import android.widget.TextView
+import com.tuann.productdiscovery.presentation.common.Navigator
 import com.tuann.productdiscovery.presentation.listener.EndlessRecyclerOnScrollListener
+import com.tuann.productdiscovery.utils.ext.afterTextChanged
 import com.tuann.productdiscovery.utils.ext.hideKeyboard
+import javax.inject.Inject
 
 class ProductListingActivity : BaseActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    lateinit var navigator: Navigator
 
     private lateinit var viewModel: ProductListingViewModel
 
@@ -83,19 +86,10 @@ class ProductListingActivity : BaseActivity() {
                 return false
             }
         })
-        binding.etSearch.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.btnClose.visibility =
-                    if (binding.etSearch.toString().trim().isNotEmpty()) View.VISIBLE else View.GONE
-            }
-        })
+        binding.etSearch.afterTextChanged {
+            binding.btnClose.visibility =
+                if (it.trim().isNotEmpty()) View.VISIBLE else View.GONE
+        }
         binding.btnClose.setOnClickListener {
             binding.etSearch.setText("")
         }
@@ -120,7 +114,9 @@ class ProductListingActivity : BaseActivity() {
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = ProductListingAdapter()
+        binding.recyclerView.adapter = ProductListingAdapter {
+            navigator.navigateToProductDetailScreen(it)
+        }
 
         endlessListener = object : EndlessRecyclerOnScrollListener(layoutManager) {
             override fun onLoadMore(currentPage: Int) {

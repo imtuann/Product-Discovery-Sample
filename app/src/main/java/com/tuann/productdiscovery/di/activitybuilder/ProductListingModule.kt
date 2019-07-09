@@ -12,7 +12,7 @@ import dagger.multibindings.IntoMap
 @Module
 interface ProductListingModule {
     @Binds
-    fun providesAppCompatActivity(mapsActivity: ProductListingActivity): AppCompatActivity
+    fun providesAppCompatActivity(productListingActivity: ProductListingActivity): AppCompatActivity
 
     @Binds
     @IntoMap

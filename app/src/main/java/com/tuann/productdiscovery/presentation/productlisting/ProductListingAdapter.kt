@@ -8,7 +8,9 @@ import com.tuann.productdiscovery.R
 import com.tuann.productdiscovery.data.model.Product
 import com.tuann.productdiscovery.databinding.ItemProductBinding
 
-class ProductListingAdapter : RecyclerView.Adapter<ProductListingAdapter.ProductViewHolder>() {
+class ProductListingAdapter(
+    private val itemCallback: (Product) -> Unit
+) : RecyclerView.Adapter<ProductListingAdapter.ProductViewHolder>() {
     private val data = ArrayList<Product>()
 
     fun addData(items: List<Product>) {
@@ -44,6 +46,9 @@ class ProductListingAdapter : RecyclerView.Adapter<ProductListingAdapter.Product
 
         fun bindData(product: Product) {
             binding.product = product
+            binding.root.setOnClickListener {
+                itemCallback.invoke(product)
+            }
         }
     }
 }
