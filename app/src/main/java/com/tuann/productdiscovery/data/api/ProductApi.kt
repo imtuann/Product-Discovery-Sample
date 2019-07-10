@@ -1,7 +1,8 @@
 package com.tuann.productdiscovery.data.api
 
+import com.tuann.productdiscovery.data.api.response.ProductDetailResponse
 import com.tuann.productdiscovery.data.api.response.Result
-import com.tuann.productdiscovery.data.api.response.SearchProduct
+import com.tuann.productdiscovery.data.api.response.SearchProductResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -16,10 +17,10 @@ interface ProductApi {
         @Query("q") q: String,
         @Query("terminal") terminal: String,
         @Query("_page") page: Int
-    ): Single<Result<SearchProduct>>
+    ): Single<Result<SearchProductResponse>>
 
     @GET("products/{product_sku}")
     fun getProduct(
         @Path("product_sku") sku: String
-    )
+    ): Single<Result<ProductDetailResponse>>
 }

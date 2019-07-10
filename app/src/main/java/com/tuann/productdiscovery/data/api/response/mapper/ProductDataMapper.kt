@@ -22,7 +22,14 @@ fun ProductResponse.toProduct(): Product = Product(
     status?.toStatus(),
     images?.toImages(),
     price?.toPrice(),
-    productLine?.toProductLine()
+    productLine?.toProductLine(),
+    attributeGroups?.toAttributeGroups()
+)
+
+fun List<AttributeGroupsResponse>.toAttributeGroups(): List<AttributeGroups> = map { it.toAttributeGroups() }
+
+fun AttributeGroupsResponse.toAttributeGroups(): AttributeGroups = AttributeGroups(
+    id, name, value, parentId, priority
 )
 
 fun List<PromotionResponse>.toPromotions(): List<Promotion> = map { it.toPromotion() }

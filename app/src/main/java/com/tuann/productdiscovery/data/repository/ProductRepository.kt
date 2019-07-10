@@ -12,4 +12,6 @@ interface ProductRepository {
         terminal: String,
         page: Int
     ): Single<List<Product>>
+
+    fun getProduct(sku: String): Single<Product>
 }

@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Product Discovery</string>
     <string name="all_search_product_hint">Nhập tên, mã sản phẩm</string>
+    <string name="all_product_code">Mã SP:</string>
+    <string name="tab_product_description">Mô tả sản phẩm</string>
+    <string name="tab_attribute_product">Thông số kĩ thuật</string>
+    <string name="tab_compare_price">So sánh giá</string>
+    <string name="all_product_is_the_same">Sản phẩm cùng loại</string>
 </resources>

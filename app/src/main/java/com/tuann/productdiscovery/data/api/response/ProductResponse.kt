@@ -15,7 +15,16 @@ class ProductResponse(
     val status: StatusResponse?,
     val images: List<ImageResponse>?,
     val price: PriceResponse?,
-    val productLine: ProductLineResponse?
+    val productLine: ProductLineResponse?,
+    val attributeGroups: List<AttributeGroupsResponse>?
+)
+
+class AttributeGroupsResponse(
+    val id: String?,
+    val name: String?,
+    val value: String?,
+    val parentId: Long?,
+    val priority: Long?
 )
 
 class PromotionResponse(

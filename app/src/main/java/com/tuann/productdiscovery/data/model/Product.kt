@@ -19,7 +19,17 @@ data class Product(
     val status: Status?,
     val images: List<Image>?,
     val price: Price?,
-    val productLine: ProductLine?
+    val productLine: ProductLine?,
+    val attributeGroups: List<AttributeGroups>?
+) : Parcelable
+
+@Parcelize
+data class AttributeGroups(
+    val id: String?,
+    val name: String?,
+    val value: String?,
+    val parentId: Long?,
+    val priority: Long?
 ) : Parcelable
 
 @Parcelize
