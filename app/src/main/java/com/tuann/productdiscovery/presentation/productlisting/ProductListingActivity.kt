@@ -80,18 +80,16 @@ class ProductListingActivity : BaseActivity() {
             .map {
                 binding.btnClose.visibility =
                     if (it.trim().isNotEmpty()) View.VISIBLE else View.GONE
-                return@map it
+                return@map it.toString()
             }
             .filter {
                 it.length >= 2 || it.length == 0
             }
             .debounce(200, TimeUnit.MILLISECONDS)
+            .distinctUntilChanged()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                val query = it.toString().trim()
-                if (q != query) {
-                    q = query
-                }
+                q = it.toString().trim()
                 loadAgain()
             }, { error ->
                 Log.e("error", error.toString())
