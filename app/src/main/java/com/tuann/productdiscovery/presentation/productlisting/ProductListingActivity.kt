@@ -1,24 +1,24 @@
 package com.tuann.productdiscovery.presentation.productlisting
 
 import android.os.Bundle
-import android.view.KeyEvent
+import android.util.Log
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jakewharton.rxbinding.widget.RxTextView
 import com.tuann.productdiscovery.R
 import com.tuann.productdiscovery.databinding.ActivityProductListingBinding
 import com.tuann.productdiscovery.di.ViewModelFactory
 import com.tuann.productdiscovery.presentation.common.BaseActivity
 import com.tuann.productdiscovery.presentation.common.Navigator
 import com.tuann.productdiscovery.presentation.listener.EndlessRecyclerOnScrollListener
-import com.tuann.productdiscovery.utils.ext.afterTextChanged
 import com.tuann.productdiscovery.utils.ext.hideKeyboard
+import rx.android.schedulers.AndroidSchedulers
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class ProductListingActivity : BaseActivity() {
@@ -76,20 +76,26 @@ class ProductListingActivity : BaseActivity() {
 
     private fun handleSearch() {
         binding.etSearch.clearFocus()
-        binding.etSearch.setOnEditorActionListener(object : TextView.OnEditorActionListener {
-            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    q = binding.etSearch.text.toString().trim()
-                    loadAgain()
-                    return true
-                }
-                return false
+        RxTextView.textChanges(binding.etSearch)
+            .map {
+                binding.btnClose.visibility =
+                    if (it.trim().isNotEmpty()) View.VISIBLE else View.GONE
+                return@map it
             }
-        })
-        binding.etSearch.afterTextChanged {
-            binding.btnClose.visibility =
-                if (it.trim().isNotEmpty()) View.VISIBLE else View.GONE
-        }
+            .filter {
+                it.length >= 2 || it.length == 0
+            }
+            .debounce(200, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                val query = it.toString().trim()
+                if (q != query) {
+                    q = query
+                }
+                loadAgain()
+            }, { error ->
+                Log.e("error", error.toString())
+            })
         binding.btnClose.setOnClickListener {
             binding.etSearch.setText("")
         }
